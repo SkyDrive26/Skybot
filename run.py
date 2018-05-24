@@ -16,7 +16,7 @@ help = "!help, !repos"
 # IRC Server information
 server = "irc.lichtsnel.nl"
 port = "6667"
-botnick = "SkyBot"
+botnick = "Sky"
 nickserv = "aPPeLTaaRT"
 
 # Define things here.
