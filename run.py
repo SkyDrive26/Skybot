@@ -16,7 +16,7 @@ help = "!help, !repos"
 # IRC Server information
 server = "irc.lichtsnel.nl"
 port = "6667"
-botnick = "Sky"
+botnick = "SkyBot"
 nickserv = "aPPeLTaaRT"
 
 # Define things here.
@@ -48,36 +48,17 @@ joinchan("#SkyDev")
 while 1:
 	ircmsg = irc.recv(2048)
 	print(ircmsg)
-	send = functions.check(ircmsg)
-	if send != None:
-		irc.send(send)
-"""
-	if ircmsg.find("PING") != -1:
-		split = ircmsg.split()
-		thing = split[1].strip(':')
-		irc.send("PONG :"+ thing +"\r\n")
 	
-	if ircmsg.find(":!changes") != -1:
-		findNick()
-		irc.send("NOTICE "+ nick +" :Version "+ version +" , Changes: "+ changes +".\r\n")
-	
-	if ircmsg.lower().find(":!help") != -1:
-		nick = findNick()
-		host = findHost()
-		if isAdmin():
-			irc.send("NOTICE "+ nick +" :My current commands are: "+ help +", !java.\r\n")
+	if ircmsg.find(":.update") != -1 and functions.isAdmin(ircmsg):
+		if update.check(functions.getVersion()) == True:
+			reload(functions)
+			print "SkyBot has been updated to "+ functions.getVersion() +"\n"
 		else:
-			irc.send("NOTICE "+ nick +" :My current commands are: "+ help +".\r\n")
-			
-	if (ircmsg.lower().find(":!shutdown") != -1) and isAdmin():
-		sys.exit()
-			
-	if ircmsg.lower().find(":!java") != -1:
-		nick = findNick()
-		if isAdmin():
-			irc.send("NOTICE "+ nick +" :https://github.com/SkyDrive26/JAVA\r\n")
-			
-	if ircmsg.lower().find(":!repos") != -1:
-		nick = findNick()
-		irc.send("NOTICE "+ nick +" :https://github.com/SkyDrive26?tab=repositories\r\n")
-"""	
+			print "SkyBot has not been updated\n"
+	
+	send = functions.check(ircmsg)
+	if isinstance(send, list):
+		for x in send:
+			irc.send(x)
+	elif send != None:
+		irc.send(send)
