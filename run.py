@@ -5,6 +5,8 @@
 import socket
 import sys
 from time import sleep
+import functions
+import update
 
 # Bot information.
 version = '1.0'
@@ -24,23 +26,12 @@ def sendmsg(chan , msg):
 def joinchan(channel):
 	irc.send("JOIN "+ channel +"\n")
 	
-def findNick():
-	ni = ircmsg.split('!')
-	nick = ni[0].strip(':')
-	return nick
-
-def findHost():
-	host = ircmsg.split('@')[1].split()[0]
-	return host
-
-def isAdmin():
-	if findNick() == admin[0] and findHost() == admin[1]:
-		return True
-	else:
-		return False
-
-# Variables
-admin = ["SkyDrive", "I.am.in.the.fucking.Cloud"]
+# Update on start
+if update.check(functions.getVersion()) == True:
+	reload(functions)
+	print "SkyBot has been updated to "+ functions.getVersion() +"\n"
+else:
+	print "SkyBot has not been updated\n"
 
 # Connect to the IRC server here.
 irc = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -57,7 +48,10 @@ joinchan("#SkyDev")
 while 1:
 	ircmsg = irc.recv(2048)
 	print(ircmsg)
-	
+	send = functions.check(ircmsg)
+	if send != None:
+		irc.send(send)
+"""
 	if ircmsg.find("PING") != -1:
 		split = ircmsg.split()
 		thing = split[1].strip(':')
@@ -86,4 +80,4 @@ while 1:
 	if ircmsg.lower().find(":!repos") != -1:
 		nick = findNick()
 		irc.send("NOTICE "+ nick +" :https://github.com/SkyDrive26?tab=repositories\r\n")
-		
+"""	
