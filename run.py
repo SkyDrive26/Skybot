@@ -12,10 +12,10 @@ changes = "Initial version."
 help = "!help, !repos"
 
 # IRC Server information
-server = "irc.rizon.net"
+server = "irc.lichtsnel.nl"
 port = "6667"
-botnick = "SkyRC"
-nickserv = ""
+botnick = "Sky"
+nickserv = "aPPeLTaaRT"
 
 # Define things here.
 def sendmsg(chan , msg):
