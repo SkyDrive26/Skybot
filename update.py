@@ -6,7 +6,7 @@ import urllib2, base64
 
 def check(curversion):
 	response = urllib2.Request('https://skybot.daanvb.nl/update/versionb.txt')
-	base64string = base64.b64encode('%s:%s' % ("skybot", "VanSkyBot"))
+	base64string = base64.b64encode('%s:%s' % ("username", "password"))
 	response.add_header("Authorization", "Basic %s" % base64string)
 	VERSION = int(urllib2.urlopen(response).read())
 	curversion = int(curversion)
@@ -19,7 +19,7 @@ def check(curversion):
 
 def update():
 	response = urllib2.Request("https://skybot.daanvb.nl/update/functions.py")
-	base64string = base64.b64encode('%s:%s' % ("skybot", "VanSkyBot"))
+	base64string = base64.b64encode('%s:%s' % ("username", "password"))
 	response.add_header("Authorization", "Basic %s" % base64string)
 	data = urllib2.urlopen(response).read()
  
