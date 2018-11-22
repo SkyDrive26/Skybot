@@ -17,7 +17,7 @@ help = "!help, !repos"
 server = "irc.lichtsnel.nl"
 port = "6667"
 botnick = "Sky"
-nickserv = "aPPeLTaaRT"
+nickserv = "***"
 
 # Define things here.
 def sendmsg(chan , msg):
